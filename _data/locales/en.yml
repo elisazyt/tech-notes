@@ -77,21 +77,3 @@ post:
       title: Copy link
       succeed: Link copied successfully!
 
-# Date time format.
-# See: <http://strftime.net/>, <https://day.js.org/docs/en/display/format>
-df:
-  post:
-    strftime: "%b %e, %Y"
-    dayjs: "ll"
-  archives:
-    strftime: "%b"
-    dayjs: "MMM"
-
-# categories page
-categories:
-  category_measure:
-    singular: category
-    plural: categories
-  post_measure:
-    singular: post
-    plural: posts

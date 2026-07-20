@@ -20,27 +20,6 @@
   {% endunless %}
 {% endif %}
 
-{% if page.layout == 'home'
-  or page.layout == 'post'
-  or page.layout == 'archives'
-  or page.layout == 'category'
-  or page.layout == 'tag'
-%}
-  {% assign locale = include.lang | split: '-' | first %}
-
-  {% assign urls = urls
-    | append: ','
-    | append: site.data.origin[type].dayjs.js.common
-    | append: ','
-    | append: site.data.origin[type].dayjs.js.locale
-    | replace: ':LOCALE', locale
-    | append: ','
-    | append: site.data.origin[type].dayjs.js.relativeTime
-    | append: ','
-    | append: site.data.origin[type].dayjs.js.localizedFormat
-  %}
-{% endif %}
-
 {% if page.content contains '<h2' or page.content contains '<h3' and site.toc and page.toc %}
   {% assign urls = urls | append: ',' | append: site.data.origin[type].toc.js %}
 {% endif %}
@@ -52,9 +31,9 @@
 {% include jsdelivr-combine.html urls=urls %}
 
 {% case page.layout %}
-  {% when 'home', 'categories', 'post', 'page' %}
+  {% when 'home', 'post', 'page' %}
     {% assign js = page.layout %}
-  {% when 'archives', 'category', 'tag' %}
+  {% when 'category', 'tag' %}
     {% assign js = 'misc' %}
   {% else %}
     {% assign js = 'commons' %}

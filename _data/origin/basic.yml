@@ -17,13 +17,6 @@ search:
 mermaid:
   js: /assets/lib/mermaid/mermaid.min.js
 
-dayjs:
-  js:
-    common: /assets/lib/dayjs/dayjs.min.js
-    locale: /assets/lib/dayjs/locale/en.js
-    relativeTime: /assets/lib/dayjs/plugin/relativeTime.js
-    localizedFormat: /assets/lib/dayjs/plugin/localizedFormat.js
-
 glightbox:
   css: /assets/lib/glightbox/glightbox.min.css
   js: /assets/lib/glightbox/glightbox.min.js

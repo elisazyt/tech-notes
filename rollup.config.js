@@ -9,7 +9,7 @@ const SRC_PWA = `${SRC_DEFAULT}/pwa`;
 const DIST = 'assets/js/dist';
 
 const banner = `/*!
- * ${pkg.name} v${pkg.version} | © ${pkg.since} ${pkg.author} | ${pkg.license} Licensed | ${pkg.homepage}
+ * ${pkg.name} v${pkg.version}
  */`;
 const frontmatter = '---\npermalink: /:basename\n---\n';
 const isProd = process.env.BUILD === 'production';
@@ -76,7 +76,6 @@ cleanup();
 export default [
   build('commons'),
   build('home'),
-  build('categories'),
   build('page'),
   build('post'),
   build('misc'),

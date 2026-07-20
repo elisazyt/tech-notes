@@ -35,13 +35,6 @@ search:
 mermaid:
   js: https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
 
-dayjs:
-  js:
-    common: https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js
-    locale: https://cdn.jsdelivr.net/npm/dayjs@1/locale/:LOCALE.js
-    relativeTime: https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js
-    localizedFormat: https://cdn.jsdelivr.net/npm/dayjs@1/plugin/localizedFormat.js
-
 glightbox:
   css: https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css
   js: https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js
