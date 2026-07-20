@@ -9,6 +9,10 @@ layout: default
 
 {% assign posts = all_pinned | concat: all_normal %}
 
+<p class="home-description px-xl-1">
+  All content is based on my own notes, research, and experience. AI is used to maintain the website, format the posts, and revise wording and structure for improved readability. Notably, AI is never used to add or change any factual information.
+</p>
+
 <div id="post-list" class="flex-grow-1 px-xl-1 home-post-list">
   {% for post in posts %}
     <article class="list-entry">

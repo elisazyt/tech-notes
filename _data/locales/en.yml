@@ -23,7 +23,6 @@ search:
   no_results: Oops! No results found.
 
 panel:
-  lastmod: Recently Updated
   trending_tags: Trending Tags
   toc: Contents
 
@@ -57,9 +56,6 @@ theme:
 # ----- Posts related labels -----
 
 post:
-  written_by: By
-  posted: Posted
-  updated: Updated
   words: words
   pageview_measure: views
   read_time:

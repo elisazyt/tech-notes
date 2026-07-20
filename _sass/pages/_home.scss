@@ -1,6 +1,14 @@
 @use '../abstracts/breakpoints' as bp;
 @use '../abstracts/placeholders';
 
+.home-description {
+  margin: -0.2rem 0 1.25rem;
+  color: var(--text-muted-color);
+  font-size: 0.85rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
 #post-list {
   margin-top: 1.5rem;
 

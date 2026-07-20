@@ -5,7 +5,8 @@ import {
   imgPopup,
   initClipboard,
   initToc,
-  loadMermaid
+  loadMermaid,
+  newTabLinks
 } from './modules/components';
 
 loadImg();
@@ -15,4 +16,5 @@ initSidebar();
 initClipboard();
 initTopbar();
 loadMermaid();
+newTabLinks();
 basic();

@@ -65,15 +65,3 @@
     display: none;
   }
 }
-
-#access-lastmod {
-  a {
-    color: inherit;
-
-    &:hover {
-      @extend %link-hover;
-    }
-
-    @extend %no-bottom-border;
-  }
-}

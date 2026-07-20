@@ -3,11 +3,3 @@
 .category-heading {
   padding-left: 0.25rem;
 }
-
-#access-lastmod {
-  a:hover {
-    @extend %link-hover;
-
-    margin-bottom: -1px; /* Avoid jumping */
-  }
-}
