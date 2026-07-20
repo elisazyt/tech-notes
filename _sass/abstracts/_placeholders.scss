@@ -3,7 +3,7 @@
 
 %heading {
   color: var(--heading-color);
-  font-weight: 400;
+  font-weight: 300;
   font-family: v.$font-family-heading;
   scroll-margin-top: 3.5rem;
 }
@@ -45,8 +45,8 @@
 }
 
 %link-hover {
-  color: #d2603a !important;
-  border-bottom: 1px solid #d2603a;
+  color: var(--link-color) !important;
+  border-bottom: 1px solid var(--link-color);
   text-decoration: none;
 }
 

@@ -24,6 +24,8 @@ header {
   }
 
   .post-meta {
+    line-height: 1.3;
+
     span + span::before {
       @include -dot;
     }
@@ -48,8 +50,16 @@ header {
 .post-tail-wrapper {
   @extend %text-sm;
 
-  margin-top: 6rem;
+  margin-top: 2.5rem;
   border-bottom: 1px double var(--main-border-color);
+
+  .post-tail-categories {
+    margin-bottom: 0.75rem;
+  }
+
+  .post-tail-bottom {
+    margin-top: 2rem;
+  }
 
   .license-wrapper {
     line-height: 1.2rem;
@@ -67,8 +77,12 @@ header {
     }
   } /* .license-wrapper */
 
-  .post-meta a:not(:hover) {
-    @extend %link-underline;
+  .post-meta {
+    line-height: 1.3;
+
+    a:not(:hover) {
+      @extend %link-underline;
+    }
   }
 
   .share-wrapper {
@@ -139,9 +153,11 @@ header {
 }
 
 .post-tags {
-  line-height: 2rem;
+  line-height: 1.3;
 
   .post-tag {
+    line-height: 1.1;
+
     &:hover {
       @extend %tag-hover;
     }
@@ -266,7 +282,7 @@ header {
   overflow-y: auto;
   max-height: 100vh;
   scrollbar-width: none;
-  margin-top: 2rem;
+  margin-top: 0.25rem;
 
   &:not(.invisible) {
     -webkit-animation: fade-up 0.8s;

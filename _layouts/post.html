@@ -21,20 +21,6 @@ script_includes:
     {% endif %}
 
     <div class="post-meta text-muted">
-      <!-- published date -->
-      <span>
-        {{ site.data.locales[lang].post.posted }}
-        {% include datetime.html date=page.date tooltip=true lang=lang %}
-      </span>
-
-      <!-- lastmod date -->
-      {% if page.last_modified_at and page.last_modified_at != page.date %}
-        <span>
-          {{ site.data.locales[lang].post.updated }}
-          {% include datetime.html date=page.last_modified_at tooltip=true lang=lang %}
-        </span>
-      {% endif %}
-
       {% if page.image %}
         {% capture src %}src="{{ page.image.path | default: page.image }}"{% endcapture %}
         {% capture class %}class="preview-img{% if page.image.no_bg %}{{ ' no-bg' }}{% endif %}"{% endcapture %}
@@ -124,14 +110,14 @@ script_includes:
   </div>
 
   <div class="post-tail-wrapper text-muted">
-    <div class="d-flex justify-content-between align-items-center gap-3 mb-3">
+    <div class="d-flex justify-content-between align-items-center gap-3 post-tail-categories">
       <!-- categories -->
       {% if page.categories.size > 0 %}
         <div class="post-meta">
           <i class="far fa-folder-open fa-fw me-1"></i>
           {% for category in page.categories %}
             <a href="{{ site.baseurl }}/categories/{{ category | slugify | url_encode }}/">{{ category }}</a>
-            {%- unless forloop.last -%},{%- endunless -%}
+            {%- unless forloop.last -%}<span class="category-pointer"> &rsaquo; </span>{%- endunless -%}
           {% endfor %}
         </div>
       {% endif %}
@@ -158,7 +144,7 @@ script_includes:
     <div
       class="
         post-tail-bottom
-        d-flex justify-content-between align-items-center mt-5 pb-2
+        d-flex justify-content-between align-items-center pb-2
       "
     >
       <div class="license-wrapper">

@@ -43,6 +43,40 @@
             return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
           }
         }
+
+        if (prop === 'content') {
+          const query = document.getElementById('search-input').value.trim();
+          const radius = 90;
+          let excerpt = value;
+          let matchIndex = -1;
+
+          if (query !== '') {
+            matchIndex = value.toLowerCase().indexOf(query.toLowerCase());
+          }
+
+          if (matchIndex === -1) {
+            excerpt = value.slice(0, 2 * radius);
+          } else {
+            const start = Math.max(0, matchIndex - radius);
+            const end = Math.min(value.length, matchIndex + query.length + radius);
+
+            excerpt = (start > 0 ? '… ' : '') + value.slice(start, end) + (end < value.length ? ' …' : '');
+          }
+
+          excerpt = excerpt
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+
+          if (matchIndex !== -1) {
+            const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const matchRegex = new RegExp(`(${escapedQuery})`, 'ig');
+
+            excerpt = excerpt.replace(matchRegex, '<mark>$1</mark>');
+          }
+
+          return excerpt;
+        }
       }
     });
   });

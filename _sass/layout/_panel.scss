@@ -5,7 +5,7 @@
 .access {
   top: 2rem;
   transition: top 0.2s ease-in-out;
-  margin-top: 3rem;
+  margin-top: 0.25rem;
 
   &:only-child {
     position: -webkit-sticky;
@@ -37,9 +37,18 @@
   }
 
   .post-tag {
+    --bs-btn-color: var(--link-color);
+    --bs-btn-border-color: var(--sidebar-border-color);
+    --bs-btn-hover-color: var(--main-bg);
+    --bs-btn-hover-bg: var(--link-color);
+    --bs-btn-hover-border-color: var(--link-color);
+    --bs-btn-active-color: var(--main-bg);
+    --bs-btn-active-bg: var(--link-color);
+    --bs-btn-active-border-color: var(--link-color);
+
     line-height: 1.05rem;
     font-size: 0.85rem;
-    border-radius: 0.8rem;
+    border-radius: 999px;
     padding: 0.3rem 0.5rem;
     margin: 0 0.35rem 0.5rem 0;
 

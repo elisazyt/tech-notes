@@ -1,23 +1,49 @@
 <!-- The Top Bar -->
 
-<header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar">
+<header id="topbar-wrapper" class="flex-shrink-0{% if page.layout == 'home' %} home-topbar{% endif %}" aria-label="Top Bar">
   <div
     id="topbar"
     class="d-flex align-items-center justify-content-between px-lg-3 h-100"
   >
-    <nav id="breadcrumb" aria-label="Breadcrumb">
+    <nav id="breadcrumb" aria-label="Breadcrumb" class="{% if page.layout == 'home' %}home-breadcrumb{% endif %}">
       {% assign paths = page.url | split: '/' %}
 
       {% if paths.size == 0 or page.layout == 'home' %}
         <!-- index page -->
-        <span>{{ site.data.locales[include.lang].tabs.home | capitalize }}</span>
+        <span>{{ site.data.locales[include.lang].tabs.home }}</span>
+
+      {% elsif page.layout == 'post' %}
+        <span>
+          <a href="{{ '/' | relative_url }}">
+            {{- site.data.locales[include.lang].tabs.home -}}
+          </a>
+        </span>
+
+        {% for category in page.categories %}
+          <span>
+            <a href="{{ category | slugify | url_encode | prepend: '/categories/' | append: '/' | relative_url }}">
+              {{- category -}}
+            </a>
+          </span>
+        {% endfor %}
+
+        <span>{{ page.title }}</span>
+
+      {% elsif page.layout == 'category' or page.layout == 'tag' %}
+        <span>
+          <a href="{{ '/' | relative_url }}">
+            {{- site.data.locales[include.lang].tabs.home -}}
+          </a>
+        </span>
+
+        <span>{{ page.title }}</span>
 
       {% else %}
         {% for item in paths %}
           {% if forloop.first %}
             <span>
               <a href="{{ '/' | relative_url }}">
-                {{- site.data.locales[include.lang].tabs.home | capitalize -}}
+                {{- site.data.locales[include.lang].tabs.home -}}
               </a>
             </span>
 
@@ -27,13 +53,6 @@
             {% else %}
               <span>{{ page.title }}</span>
             {% endif %}
-
-          {% elsif page.layout == 'category' or page.layout == 'tag' %}
-            <span>
-              <a href="{{ item | append: '/' | relative_url }}">
-                {{- site.data.locales[include.lang].tabs[item] | default: page.title -}}
-              </a>
-            </span>
           {% endif %}
         {% endfor %}
       {% endif %}
@@ -54,24 +73,5 @@
         {{- site.data.locales[include.lang].layout[page.layout] | default: page.layout | capitalize -}}
       {% endif %}
     </div>
-
-    <button type="button" id="search-trigger" class="btn btn-link" aria-label="Search">
-      <i class="fas fa-search fa-fw"></i>
-    </button>
-
-    <search id="search" class="align-items-center ms-3 ms-lg-0">
-      <i class="fas fa-search fa-fw"></i>
-      <input
-        class="form-control"
-        id="search-input"
-        type="search"
-        aria-label="search"
-        autocomplete="off"
-        placeholder="{{ site.data.locales[include.lang].search.hint | capitalize }}..."
-      >
-    </search>
-    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">
-      {{- site.data.locales[include.lang].search.cancel -}}
-    </button>
   </div>
 </header>

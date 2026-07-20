@@ -1,37 +1,23 @@
 @use '../abstracts/breakpoints' as bp;
-@use '../abstracts/variables' as v;
 @use '../abstracts/placeholders';
 
 search {
   display: flex;
   width: 100%;
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   border: 1px solid var(--search-border-color);
   background: var(--main-bg);
-  padding: 0 0.5rem;
+  padding: 0.5rem 0.85rem;
+  transition: border-color 0.2s ease-in-out;
+
+  &:focus-within {
+    border-color: var(--input-focus-border-color);
+  }
 
   i {
     z-index: 2;
     font-size: 0.9rem;
     color: var(--search-icon-color);
-  }
-
-  @include bp.lt(bp.get(lg)) {
-    display: none;
-  }
-
-  @include bp.lg {
-    max-width: v.$search-max-width;
-  }
-
-  @include bp.xl {
-    margin-right: 4rem;
-  }
-
-  @include bp.xxxl {
-    margin-right: calc(
-      v.$main-content-max-width / 4 - v.$search-max-width - 0.75rem
-    );
   }
 }
 
@@ -54,7 +40,6 @@ search {
   }
 
   @include bp.lg {
-    max-width: v.$main-content-max-width;
     justify-content: start !important;
   }
 }
@@ -123,17 +108,15 @@ search {
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+
+      mark {
+        padding: 0 0.15rem;
+        border-radius: 0.2rem;
+        color: #3a3a2a;
+        background-color: #fde68a;
+      }
     }
   }
-}
-
-/* 'Cancel' link */
-#search-cancel {
-  color: var(--link-color);
-  display: none;
-  white-space: nowrap;
-
-  @extend %cursor-pointer;
 }
 
 #search-input {
@@ -141,6 +124,7 @@ search {
   border: 0;
   border-radius: 0;
   padding: 0.18rem 0.3rem;
+  font-size: 0.95rem;
   color: var(--text-color);
   height: auto;
 

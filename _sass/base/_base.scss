@@ -36,10 +36,15 @@ $enable-dark: v.$theme == dark or $enable-dual;
 
 :root {
   font-size: 16px;
+  scroll-behavior: auto;
 
   @include bp.lg {
     overflow-y: scroll;
   }
+}
+
+.category-pointer {
+  opacity: 0.55;
 }
 
 body {
@@ -49,6 +54,7 @@ body {
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   font-family: v.$font-family-base;
+  font-weight: 400;
 }
 
 h1.dynamic-title {
@@ -465,9 +471,20 @@ mjx-container {
     }
 
     @include bp.xxxl {
-      max-width: v.$main-content-max-width;
-
       @include mx.pl-pr(1.75rem, true);
+    }
+
+    @include bp.xl {
+      main[aria-label='Main Content'],
+      #tail-wrapper {
+        flex: 0 0 auto;
+        width: 78%;
+      }
+
+      #panel-wrapper {
+        flex: 0 0 auto;
+        width: 22%;
+      }
     }
   }
 }
@@ -486,6 +503,6 @@ mjx-container {
   }
 
   > :not(script) {
-    margin-top: 3rem;
+    margin-top: 1.5rem;
   }
 }

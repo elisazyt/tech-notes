@@ -5,20 +5,51 @@ layout: page
 
 {% include lang.html %}
 
+{% assign all_pinned = page.posts | where: 'pin', 'true' | sort: 'title' %}
+{% assign all_normal = page.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' | sort: 'title' %}
+{% assign posts = all_pinned | concat: all_normal %}
+
 <div id="page-category">
-  <h1 class="ps-lg-2">
-    <i class="far fa-folder-open fa-fw text-muted"></i>
+  <h1 class="category-heading">
     {{ page.title }}
-    <span class="lead text-muted ps-2">{{ page.posts | size }}</span>
+    <span class="lead text-muted ps-2">{{ posts | size }}</span>
   </h1>
 
-  <ul class="content ps-0">
-    {% for post in page.posts %}
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        <span class="dash flex-grow-1"></span>
-        {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=lang %}
-      </li>
+  <div id="post-list" class="flex-grow-1 px-xl-1">
+    {% for post in posts %}
+      <article class="list-entry">
+        <a href="{{ post.url | relative_url }}" class="list-entry-link">
+          <h2 class="list-entry-title">
+            {% if post.pin %}
+              <i class="fas fa-thumbtack fa-fw pin-icon"></i>
+            {% endif %}
+            {{ post.title }}
+          </h2>
+
+          <p class="list-entry-summary">{% include post-summary.html %}</p>
+
+          {% if post.categories.size > 0 %}
+            <div class="list-entry-meta">
+              <span class="categories">
+                <i class="far fa-folder-open fa-fw me-1"></i>
+                {% for category in post.categories %}
+                  {{ category }}
+                  {%- unless forloop.last -%}<span class="category-pointer"> &rsaquo; </span>{%- endunless -%}
+                {% endfor %}
+              </span>
+            </div>
+          {% endif %}
+
+          {% if post.tags.size > 0 %}
+            <div class="list-entry-tags">
+              {% for tag in post.tags %}
+                <span class="post-tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </a>
+      </article>
     {% endfor %}
-  </ul>
+  </div>
+  <!-- #post-list -->
 </div>

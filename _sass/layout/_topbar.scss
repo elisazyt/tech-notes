@@ -5,7 +5,21 @@
 
 #topbar-wrapper {
   height: v.$topbar-height;
-  background-color: var(--topbar-bg);
+  background-color: transparent;
+
+  @include bp.xl {
+    height: 5.5rem;
+  }
+
+  &.home-topbar {
+    @include bp.xl {
+      height: 6rem;
+    }
+  }
+
+  @include bp.lt(bp.get(lg)) {
+    background-color: var(--topbar-bg);
+  }
 
   @include bp.lt(bp.get(lg)) {
     @include mx.slide(top 0.2s ease);
@@ -17,10 +31,24 @@
 #topbar {
   @extend %btn-color;
 
+  @include bp.lg {
+    justify-content: center;
+  }
+
   #breadcrumb {
-    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-size: 1.5rem;
+    line-height: 1;
     color: var(--text-muted-color);
     padding-left: 0.5rem;
+
+    &.home-breadcrumb {
+      font-size: 2rem;
+      font-family: v.$font-family-title;
+      color: var(--heading-color);
+    }
 
     a:hover {
       @extend %link-hover;
@@ -30,7 +58,7 @@
       &:not(:last-child) {
         &::after {
           content: '›';
-          padding: 0 0.3rem;
+          padding: 0 0.6rem;
         }
       }
     }
@@ -60,8 +88,8 @@
 #topbar-title {
   display: none;
   font-size: 1.1rem;
-  font-weight: 600;
-  font-family: sans-serif;
+  font-weight: 400;
+  font-family: v.$font-family-title;
   color: var(--topbar-text-color);
   text-align: center;
   width: 70%;
@@ -76,8 +104,7 @@
   }
 }
 
-#sidebar-trigger,
-#search-trigger {
+#sidebar-trigger {
   display: none;
 
   @include bp.lt(bp.get(lg)) {

@@ -10,7 +10,7 @@ layout:
 # The tabs of sidebar
 tabs:
   # format: <filename_without_extension>: <value>
-  home: Home
+  home: All Posts
   categories: Categories
   tags: Tags
   archives: Archives
@@ -69,8 +69,8 @@ post:
   relate_posts: Further Reading
   share: Share
   button:
-    next: Newer
-    previous: Older
+    next: Next
+    previous: Previous
     copy_code:
       succeed: Copied!
     share_link:

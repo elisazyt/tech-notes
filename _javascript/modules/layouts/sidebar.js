@@ -1,3 +1,5 @@
+import { initTagFilter } from '../components/tag-filter';
+
 const ATTR_DISPLAY = 'sidebar-display';
 const $sidebar = document.getElementById('sidebar');
 const $trigger = document.getElementById('sidebar-trigger');
@@ -16,4 +18,5 @@ class SidebarUtil {
 
 export function initSidebar() {
   $trigger.onclick = $mask.onclick = () => SidebarUtil.toggle();
+  initTagFilter();
 }

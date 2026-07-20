@@ -1,30 +1,23 @@
-@use '../abstracts/variables' as v;
 @use '../abstracts/placeholders';
 
 %-category-icon-color {
   color: gray;
 }
 
-.categories {
-  margin-bottom: 2rem;
-  border-color: var(--categories-border);
+.category-card {
+  margin-bottom: 1.5rem;
+  border: 0;
+  background: none;
 
-  &.card,
-  .list-group {
-    @extend %rounded;
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--main-border-color);
+    padding-bottom: 0.5rem;
   }
 
   .card-header {
-    $radius: calc(v.$radius-lg - 1px);
-
-    padding: 0.75rem;
-    border-radius: $radius;
-    border-bottom: 0;
-
-    &.hide-border-bottom {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+    padding: 0.75rem 0.25rem;
+    border: 0;
+    background: none;
   }
 
   i {
@@ -33,21 +26,16 @@
     font-size: 86%; /* fontawesome icons */
   }
 
-  .list-group-item {
-    border-left: none;
-    border-right: none;
-    padding-left: 2rem;
-
-    &:first-child {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-
-    &:last-child {
-      border-bottom: 0;
-    }
+  .list-group {
+    background: none;
   }
-} /* .categories */
+
+  .list-group-item {
+    padding: 0.5rem 0.25rem 0.5rem 2rem;
+    border: 0;
+    background: none;
+  }
+} /* .category-card */
 
 .category-trigger {
   width: 1.7rem;

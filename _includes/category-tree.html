@@ -1,0 +1,159 @@
+<!-- Nested, expandable category tree for the sidebar -->
+
+{% assign active_top = '' %}
+{% assign active_sub = '' %}
+
+{% if page.layout == 'post' %}
+  {% assign active_top = page.categories[0] %}
+  {% assign active_sub = page.categories[1] %}
+{% elsif page.layout == 'category' %}
+  {% assign active_name = page.title %}
+  {% assign active_is_top = false %}
+
+  {% for p in site.categories[active_name] %}
+    {% if p.categories[0] == active_name %}
+      {% assign active_is_top = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if active_is_top %}
+    {% assign active_top = active_name %}
+  {% else %}
+    {% assign active_sub = active_name %}
+
+    {% for p in site.categories[active_name] %}
+      {% if p.categories[1] == active_name %}
+        {% assign active_top = p.categories[0] %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
+
+{% assign group_index = 0 %}
+{% assign sort_categories = site.categories | sort %}
+
+<ul class="nav flex-column category-tree">
+  {% for category in sort_categories %}
+    {% assign category_name = category | first %}
+    {% assign posts_of_category = category | last %}
+    {% assign first_post = posts_of_category | first %}
+
+    {% if category_name == first_post.categories[0] %}
+      {% assign sub_categories = '' | split: '' %}
+
+      {% for post in posts_of_category %}
+        {% assign second_category = post.categories[1] %}
+        {% if second_category %}
+          {% unless sub_categories contains second_category %}
+            {% assign sub_categories = sub_categories | push: second_category %}
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+
+      {% assign sub_categories = sub_categories | sort %}
+      {% assign top_posts_size = site.categories[category_name] | size %}
+      {% assign cat_id = 'cat-' | append: group_index %}
+      {% assign top_expanded = false %}
+
+      {% if category_name == active_top %}
+        {% assign top_expanded = true %}
+      {% endif %}
+
+      {% assign category_url = category_name | slugify | url_encode | prepend: '/categories/' | append: '/' | relative_url %}
+
+      <li class="nav-item category-group{% if page.layout == 'category' and page.title == category_name %} active{% endif %}">
+        <div class="category-row d-flex align-items-center">
+          <button
+            type="button"
+            class="category-arrow-btn"
+            data-bs-toggle="collapse"
+            data-bs-target="#{{ cat_id }}"
+            aria-expanded="{{ top_expanded }}"
+            aria-controls="{{ cat_id }}"
+            aria-label="Toggle {{ category_name }}"
+          >
+            <i class="fas fa-fw fa-chevron-right category-arrow"></i>
+          </button>
+
+          <a href="{{ category_url }}" class="nav-link flex-grow-1">
+            <span>{{ category_name }}</span>
+            <span class="nav-item-value">{{ top_posts_size }}</span>
+          </a>
+        </div>
+
+        <div class="collapse{% if top_expanded %} show{% endif %}" id="{{ cat_id }}">
+          <ul class="nav flex-column category-sublist">
+            {% if sub_categories.size > 0 %}
+              {% for sub_category in sub_categories %}
+                {% assign sub_posts = posts_of_category | where_exp: 'p', 'p.categories[1] == sub_category' %}
+                {% assign subcat_id = cat_id | append: '-' | append: forloop.index0 %}
+                {% assign sub_expanded = false %}
+
+                {% if top_expanded and sub_category == active_sub %}
+                  {% assign sub_expanded = true %}
+                {% endif %}
+
+                {% assign sub_category_url = sub_category | slugify | url_encode | prepend: '/categories/' | append: '/' | relative_url %}
+
+                <li class="nav-item category-group{% if page.layout == 'category' and page.title == sub_category %} active{% endif %}">
+                  <div class="category-row d-flex align-items-center">
+                    <button
+                      type="button"
+                      class="category-arrow-btn"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#{{ subcat_id }}"
+                      aria-expanded="{{ sub_expanded }}"
+                      aria-controls="{{ subcat_id }}"
+                      aria-label="Toggle {{ sub_category }}"
+                    >
+                      <i class="fas fa-fw fa-chevron-right category-arrow"></i>
+                    </button>
+
+                    <a href="{{ sub_category_url }}" class="nav-link flex-grow-1">
+                      <span>{{ sub_category }}</span>
+                      <span class="nav-item-value">{{ sub_posts.size }}</span>
+                    </a>
+                  </div>
+
+                  <div class="collapse{% if sub_expanded %} show{% endif %}" id="{{ subcat_id }}">
+                    <ul class="nav flex-column category-post-list">
+                      {% for post in sub_posts %}
+                        <li class="nav-item{% if post.url == page.url %} active{% endif %}">
+                          <a class="nav-link" href="{{ post.url | relative_url }}">
+                            <span>{{ post.title }}</span>
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </li>
+              {% endfor %}
+
+              {% assign uncategorized_posts = posts_of_category | where_exp: 'p', 'p.categories[1] == nil' %}
+
+              {% for post in uncategorized_posts %}
+                <li class="nav-item{% if post.url == page.url %} active{% endif %}">
+                  <a class="nav-link" href="{{ post.url | relative_url }}">
+                    <span>{{ post.title }}</span>
+                  </a>
+                </li>
+              {% endfor %}
+            {% else %}
+              {% for post in posts_of_category %}
+                <li class="nav-item{% if post.url == page.url %} active{% endif %}">
+                  <a class="nav-link" href="{{ post.url | relative_url }}">
+                    <span>{{ post.title }}</span>
+                  </a>
+                </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+      </li>
+
+      {% assign group_index = group_index | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+</ul>

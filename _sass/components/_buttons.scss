@@ -23,16 +23,6 @@
     bottom: calc(v.$footer-height - v.$back2top-size / 2);
   }
 
-  @include bp.xxl {
-    right: calc((100vw - v.$sidebar-width - 1140px) / 2 + 3rem);
-  }
-
-  @include bp.xxxl {
-    right: calc(
-      (100vw - v.$sidebar-width-large - v.$main-content-max-width) / 2 + 2rem
-    );
-  }
-
   &:hover {
     transform: translate3d(0, -5px, 0);
     -webkit-transform: translate3d(0, -5px, 0);

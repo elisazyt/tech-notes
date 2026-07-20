@@ -1,43 +1,61 @@
 <!-- The Side Bar -->
 
 <aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
-  <header class="profile-wrapper">
-    <a href="{{ '/' | relative_url }}" id="avatar" class="rounded-circle">
-      {%- if site.avatar != empty and site.avatar -%}
-        {%- capture avatar_url -%}
-          {% include media-url.html src=site.avatar %}
-        {%- endcapture -%}
-        <img src="{{- avatar_url -}}" width="112" height="112" alt="avatar" onerror="this.style.display='none'">
-      {%- endif -%}
-    </a>
-
-    <a class="site-title d-block" href="{{ '/' | relative_url }}">{{ site.title }}</a>
-    <p class="site-subtitle fst-italic mb-0">{{ site.tagline }}</p>
-  </header>
-  <!-- .profile-wrapper -->
+  <div class="sidebar-search-wrapper">
+    <search id="search" class="align-items-center">
+      <i class="fas fa-search fa-fw"></i>
+      <input
+        class="form-control"
+        id="search-input"
+        type="search"
+        aria-label="search"
+        autocomplete="off"
+        placeholder="{{ site.data.locales[include.lang].search.hint | capitalize }}..."
+      >
+    </search>
+  </div>
 
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
-      <!-- home -->
+      <!-- all posts -->
       <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
         <a href="{{ '/' | relative_url }}" class="nav-link">
-          <i class="fa-fw fas fa-home"></i>
-          <span>{{ site.data.locales[include.lang].tabs.home | upcase }}</span>
+          <span>ALL</span>
+          <span class="nav-item-value">{{ site.posts.size }}</span>
         </a>
       </li>
-      <!-- the real tabs -->
-      {% for tab in site.tabs %}
-        <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">
-          <a href="{{ tab.url | relative_url }}" class="nav-link">
-            <i class="fa-fw {{ tab.icon }}"></i>
-            {% capture tab_name %}{{ tab.url | split: '/' }}{% endcapture %}
-
-            <span>{{ site.data.locales[include.lang].tabs.[tab_name] | default: tab.title | upcase }}</span>
-          </a>
-        </li>
-        <!-- .nav-item -->
-      {% endfor %}
     </ul>
+
+    {% include category-tree.html %}
+
+    {% assign sorted_tags = site.tags | sort %}
+    {% if sorted_tags.size > 0 %}
+      <div class="sidebar-tags">
+        <h2 class="sidebar-tags-heading">{{- site.data.locales[include.lang].tabs.tags -}}</h2>
+
+        <input
+          type="text"
+          id="tag-filter-input"
+          class="form-control"
+          placeholder="search tags..."
+          autocomplete="off"
+          aria-label="Search tags"
+        >
+
+        <ul class="nav flex-column" id="tag-filter-list">
+          {% for tag in sorted_tags %}
+            <li class="nav-item" data-tag-name="{{ tag[0] | downcase }}">
+              <a href="{{ tag[0] | slugify | url_encode | prepend: '/tags/' | append: '/' | relative_url }}" class="nav-link">
+                <span>{{ tag[0] }}</span>
+                <span class="nav-item-value">{{ tag[1].size }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <p class="sidebar-tags-empty d-none">No matching tags</p>
+      </div>
+    {% endif %}
   </nav>
 
   <div class="sidebar-bottom d-flex flex-wrap align-items-center w-100">
