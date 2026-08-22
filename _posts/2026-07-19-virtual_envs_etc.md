@@ -11,7 +11,7 @@ A virtual environment, often used in the context of Python, is an isolated setup
 
 rbenv, despite what its name implies, is not a virtual environment. Rather, it is a version manager for Ruby: it reads the `.ruby-version` file in a repo to determine which Ruby to use, using shims to do so. Shims are small scripts that are executed every time we call `ruby` or `gem`, responsible for finding a `.ruby-version` file and routing the code execution to the specified Ruby version.
 
-> This means you should never set `PATH=.../<hardcoded-ruby-version>/...` unless you plan on using the same Ruby version across all projects. Instead, we should use rbenv to read `.ruby-version` and dynamically resolve the path when the project loads.
+> This means you should never set `PATH=.../<hardcoded-ruby-version>/...` unless you plan on using the same Ruby version across all projects. Instead, you should use rbenv to read `.ruby-version` and dynamically resolve the path when the project loads.
 {: .prompt-warning }
 
 Python's venv is an example of a virtual environment, where all versions and dependencies are isolated per project on disk. In contrast, for Ruby, all projects sharing the same Ruby version store their dependencies in the same location on disk. When a project loads, its `Gemfile` tells us which versions of which dependencies to load. This means that two projects using the same Ruby version and the same version of a given gem will point to the same location on disk, whereas with Python venv, they'd point to two separate locations. This is also why we never activate an rbenv the way we do a venv or conda env (i.e., running `source venv/bin/activate` or `conda activate env-name`): rbenv isolates by version and lookup, while venv isolates per project.
