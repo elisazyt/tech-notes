@@ -13,9 +13,9 @@ lang: en
 
 title: elisa's notes # the main title
 
-tagline: notes and explanations on tech-related topics # it will display as the subtitle
+tagline: tech notes # it will display as the subtitle
 
-description: >- # used by seo meta and the atom feed
+description: collection of my notes and some resources on tech topics
 
 url: "https://elisazyt.github.io"
 

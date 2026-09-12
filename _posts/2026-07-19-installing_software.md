@@ -2,7 +2,7 @@
 title: installing software
 description: how packages are installed in python and ruby
 categories: [software isolation]
-tags: [python, pip, pypi, conda, ruby, gems, bundler]
+tags: [pip, pypi, conda, ruby, rubygems]
 pin: false
 ---
 

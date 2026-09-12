@@ -1,8 +1,8 @@
 ---
 title: environments and version managers
-description: what happens when we create a virtual environment, and how do we manage different software versions?
+description: what happens when creating a virtual env, managing different software versions
 categories: [software isolation]
-tags: [virtual environment, ruby, rbenv, python, venv, conda]
+tags: [virtual environment, ruby, venv, conda]
 pin: false
 ---
 
